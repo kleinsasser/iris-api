@@ -21,7 +21,7 @@ X = iris.data
 y = iris.target
 
 # split data to training and testing sets with 85% training, 15% testing
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=44)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=45)
 
 # train model
 model = LogisticRegression(max_iter=200)
