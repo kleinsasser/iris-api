@@ -1,3 +1,11 @@
+'''
+This file runs a handful of black box tests on the iris classifier api.
+Tests for proper functionality of both the get_prediction python method for calling the API
+as well calling the API using an HTTP post request.
+
+Running these tests requires a the local server for the API to be running on http://0.0.0.0/80.
+'''
+
 import os
 import sys
 sys.path.insert(1, 'api')

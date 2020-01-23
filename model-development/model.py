@@ -1,3 +1,10 @@
+'''
+This file provides the logic for training and exporting a Logistic Regression Model to the
+iris classifier API.
+
+The key requirement when uploading new models to the API is that the encoded sklearn .sav
+model is uploaded to the api directory with the filename 'model.sav'
+'''
 import os
 
 # import iris dataset

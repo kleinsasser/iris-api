@@ -1,3 +1,12 @@
+'''
+This file contains a python method for making calls to the iris classifier API
+much simpler.
+
+Simply pass a python list containing any amount of rows (also python lists)
+to the get_prediction function and, upon a successful API call, recieve a python list of
+predictions.
+'''
+
 import requests
 import json as J
 
