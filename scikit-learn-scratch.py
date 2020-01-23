@@ -7,6 +7,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 
+# import model storage logic
+from sklearn.externals import joblib
+
 # load data
 iris = load_iris()
 
@@ -22,9 +25,16 @@ x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random
 model = LogisticRegression(max_iter=200)
 model.fit(x_train, y_train)
 
+# save model to file
+filename = 'logistic_regression_model.sav'
+joblib.dump(model, filename)
+
+# load model from file
+loaded_model = joblib.load(filename)
+
 # print accuracy
 #Test the model
-predictions = model.predict(x_test)
+predictions = loaded_model.predict(x_test)
 print(predictions, '\n')  # printing predictions
 
 #Check precision, recall, f1-score
