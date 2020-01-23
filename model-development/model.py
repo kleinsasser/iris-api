@@ -1,3 +1,5 @@
+import os
+
 # import iris dataset
 from sklearn.datasets import load_iris
 
@@ -18,7 +20,7 @@ X = iris.data
 # classes of the dataset
 y = iris.target
 
-# split data to training and testing sets with 80% training, 20% testing
+# split data to training and testing sets with 85% training, 15% testing
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=44)
 
 # train model
@@ -26,11 +28,11 @@ model = LogisticRegression(max_iter=200)
 model.fit(x_train, y_train)
 
 # save model to file
-filename = 'logistic_regression_model.sav'
-joblib.dump(model, filename)
+path = os.path.join( os.getcwd(), 'api', 'model.sav')
+joblib.dump(model, path)
 
 # load model from file (to ensure it works)
-loaded_model = joblib.load(filename)
+loaded_model = joblib.load(path)
 
 # print accuracy
 #Test the model

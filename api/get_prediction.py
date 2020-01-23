@@ -1,7 +1,7 @@
 import requests
 import json as J
 
-def get_prediction(model_file, data):
+def get_prediction(data):
     # do some basic validation
     if len(data) < 1:
         raise ValueError('Data array was empty.')
