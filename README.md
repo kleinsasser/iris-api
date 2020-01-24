@@ -73,8 +73,8 @@ to serve predictions, so to handle the scaling problem I'd have to implement a p
 batching algorithm where I'm pulling small chunks of data from the database for training and sort of
 iterating through the desired amount of batches.
 
-Alternatively I could send the data to GPUs for more efficient training, though that would still likely
-require some level of batching.
+As for a more expensive option you could distribute the training load amongst one or more
+GPUs, increasing both training speed and RAM space.
 
 2. Describe your optimal versioning strategy for APIs which expose machine learning
 models. How does training the model on new data fit into versioning strategy? List the
