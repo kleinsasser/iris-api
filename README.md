@@ -89,7 +89,12 @@ Of course this approach could end up in some level of redundancy and duplication
 rather not have my existing code broken by new features that I may or may not be interested in.
 
 As for training new models on more data I would just make sure that again previous versions of models
-remain available, so users have proper time to adjust.
+remain available, so users have proper time to adjust. In summary:
+
+Pros: API remains backwards compatible as new versions are released, allowing users to choose whether
+to implement new capabilities.
+Cons: Source code could become crowded and redundant and API becomes resistant to fundamental/large-scale
+improvements.
 
 3. Describe your choice of model and how it fits the problem. List benefits and drawbacks
 of this type of model used in the way you have chosen and where there may be scaling
