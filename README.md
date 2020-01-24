@@ -11,11 +11,13 @@ This project depends on the following python packages, make sure you have them i
 ## How to run the API
 ### 1. Set up a local server running the API
 a. Clone the iris-api repository to your computer
+
 b. Navigate to the repo in a terminal
+
 c. Run the api/iris_api.py file in a terminal (python3 api/iris_api.py)
 
 ### 2. Call the API
-The API can be accessed in two ways:
+The API can be accessed in two ways (from a seperate terminal):
 #### 1. Using an HTTP POST request to http://0.0.0.0/80 (painful)
 The request should contain a JSON object in the following format, ensuring your mime-type is 'application/json'
 <pre><code>
@@ -64,15 +66,44 @@ Run the iris_api_tests.py script to see both behaviors in action.
 more data. How would you scale your training pipeline and/or model to handle datasets
 which do not easily fit into system memory?
 
+I think there are a number of ways to handle this fundamental Big Data problem, in the system I
+built for this particular problem I did all of the training on my computer, then sent the trained
+model to the server (really just a different local directory given I'm also hosting the server locally)
+to serve predictions, so to handle the scaling problem I'd have to implement a pretty simple
+batching algorithm where I'm pulling small chunks of data from the database for training and sort of
+iterating through the desired amount of batches.
 
+Alternatively I could send the data to GPUs for more efficient training, though that would still likely
+require some level of batching.
 
 2. Describe your optimal versioning strategy for APIs which expose machine learning
 models. How does training the model on new data fit into versioning strategy? List the
 pros and cons of your described strategy in detail.
 
+I think the key to a successful versioning strategy is consistency amongst existing capabilities.
+What I mean by that is the methods and structures that your users have been working with should
+remain functional as new features become available. For example, if I wanted to improve the 
+functionality of the get_prediction method to where the user can specify which pre-trained sklearn
+model they want to use, I would instead just write a whole new method, say get_prediction_with_model(model, data).
+Of course this approach could end up in some level of redundancy and duplication, but as a programmer I'd
+rather not have my existing code broken by new features that I may or may not be interested in.
 
+As for training new models on more data I would just make sure that again previous versions of models
+remain available, so users have proper time to adjust.
 
 3. Describe your choice of model and how it fits the problem. List benefits and drawbacks
 of this type of model used in the way you have chosen and where there may be scaling
 issues as a system like this grows in size or complexity.
 
+I chose to use logistic regression in sklearn to fit this particular problem. I chose logistic regression
+because it's an easy-to-apply algorithm and the iris dataset is famously easy to make a classifier for. I
+wanted to make sure I wasn't spending hours on a super complex algorithm when I could be focusing on the API development, something that I had to learn some new frameworks for and I knew might take a while.
+
+The pros of how I went about deploying the logistic regression model is that I used sklearn's joblib to encode the
+model to a file for later use, which makes transitioning to other sklearn models and using them in the API
+quite simple. Additionally logistic regression takes relatively few iterations to converge which is always nice.
+
+The obvious con to this approach though is the API is limited exclusively to sklearn
+models, which definitely isn't the most popular library if you want to move toward more advanced machine
+learning algorithms. If I were to push this API to its full potential it would certainly include the
+ability to use different algorithms from different libraries.
